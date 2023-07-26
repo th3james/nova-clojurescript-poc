@@ -1,0 +1,13 @@
+{
+  "name": "hello-nova",
+  "version": "1.0.0",
+  "description": "proof of concept nova extension with ClojureScript",
+  "main": "clojure-test.novaextension/Scripts/main.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "shadow-cljs": "^2.25.0",
+    "source-map-support": "^0.5.21"
+  }
+}

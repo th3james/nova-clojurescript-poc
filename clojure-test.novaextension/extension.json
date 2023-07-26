@@ -1,0 +1,32 @@
+{
+  "identifier": "th3james.clojuretest",
+  "name": "clojure-test",
+  "organization": "th3james",
+  "description": "Lorem ipsum, dolor sit amet.",
+  "version": "1.0",
+  "categories": ["commands"],
+
+  "main": "main.js",
+
+  "activationEvents": ["onLanguage:html"],
+
+  "entitlements": {},
+
+  "commands": {
+    "extensions": [
+      {
+        "title": "Open URL",
+        "command": "clojure-test.openURL"
+      }
+    ]
+  },
+
+  "config": [
+    {
+      "key": "clojure-test.foobar",
+      "title": "Foo the bar",
+      "type": "boolean",
+      "default": false
+    }
+  ]
+}
