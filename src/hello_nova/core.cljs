@@ -1,25 +1,18 @@
-(ns hello-nova.core)
+(ns hello-nova.core
+  (:require [hello-nova.nova-interop :as nova]))
 
 
-(defn handle-input
-  [result]
-  (when result
-    (.openURL js/nova result (fn [success] nil))))
-
-
-(defn open-url
+(defn get-branch
   []
-  (let [options (clj->js {"placeholder" "https://foobar.com"
-                          "prompt" "Open"})]
-    (js/nova.workspace.showInputPanel
-      "Enter the URL to open:"
-      options
-      handle-input)))
+  (js/console.log "get-branch called"))
 
 
 (defn main
   []
-  (.register (aget js/nova "commands")
-             "clojure-test.openURL"
-             (fn [_]
-               (open-url))))
+  (js/console.log "Running core ClojureScript code.")
+  (nova/register-command "clojure-test.getBranch" get-branch))
+
+
+(defn repl-entry
+  []
+  (print "Running ClojureScript REPL."))

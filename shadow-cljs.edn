@@ -3,9 +3,13 @@
  ["src/"]
 
  :dependencies
- []
+ [[cider/cider-nrepl "0.24.0"]]
 
  :builds
  {:extension {:target :node-library
               :output-to "clojure-test.novaextension/Scripts/core.js"
-              :exports-var hello-nova.core/main}}}
+              :exports-var hello-nova.core/main}
+  :repl {:target :node-script
+         :output-to "tmp/repl.js"
+         :launch-browser false
+         :main hello-nova.core/repl-entry}}}
