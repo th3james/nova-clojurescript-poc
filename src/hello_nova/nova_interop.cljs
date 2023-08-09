@@ -13,8 +13,8 @@
   (let [msg-chan (chan)
         result-chan (chan 1)
         process (js/Process. "/usr/bin/env"  (clj->js {"cwd" editor.path
-                                                      "args" (into-array (cons executable args))
-                                                      "shell" true}))]
+                                                       "args" (into-array (cons executable args))
+                                                       "shell" true}))]
 
     (.onStdout process (fn [line] (go (>! msg-chan [:out line]))))
     (.onStderr process (fn [line] (go (>! msg-chan [:err line]))))
