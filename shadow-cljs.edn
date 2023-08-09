@@ -3,7 +3,9 @@
  ["src/"]
 
  :dependencies
- [[cider/cider-nrepl "0.24.0"]]
+ [[
+   org.clojure/core.async "1.6.673"
+   cider/cider-nrepl "0.24.0"]]
 
  :builds
  {:extension {:target :node-library
