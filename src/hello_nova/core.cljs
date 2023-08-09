@@ -1,13 +1,13 @@
 (ns hello-nova.core
   (:require
-    [hello-nova.nova-interop :as nova]
-    [cljs.core.async :as async :refer [<! go]]))
+    [cljs.core.async :as async :refer [<! go]]
+    [hello-nova.nova-interop :as nova]))
 
 
 (defn get-branch
   [editor]
   (js/console.log "Getting branch.")
-  (go 
+  (go
     (let [branch (<! (nova/run-process editor "git", "rev-parse", "--abbrev-ref", "HEAD"))]
       (js/console.log "Got branch:")
       (js/console.log branch))))
