@@ -1,17 +1,23 @@
 ;; shadow-cljs configuration
 {:source-paths
- ["src/"]
+ ["src/"
+  "test/"]
 
  :dependencies
- [[
-   org.clojure/core.async "1.6.673"
+ [[org.clojure/core.async "1.6.673"
    cider/cider-nrepl "0.24.0"]]
 
  :builds
  {:extension {:target :node-library
               :output-to "clojure-test.novaextension/Scripts/core.js"
               :exports-var hello-nova.core/main}
+
   :repl {:target :node-script
          :output-to "tmp/repl.js"
          :launch-browser false
-         :main hello-nova.core/repl-entry}}}
+         :main hello-nova.core/repl-entry}
+
+  :test {:target :node-test
+         :test-dir "out/test"
+         :output-to "out/test.js"
+         :main hello-nova.test-runner/main}}}

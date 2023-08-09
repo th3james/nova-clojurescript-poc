@@ -30,3 +30,7 @@
           (= type :exit) (do (>! result-chan (assoc data :exit msg))
                              (close! msg-chan)))))
     result-chan))
+
+(defn show-notification
+  [message]
+  (js/console.log message))
