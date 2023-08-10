@@ -5,7 +5,8 @@
 
 
 (defn get-branch
-  [editor]
-  (go
-    (let [branch (<! (nova/run-process editor "git", "rev-parse", "--abbrev-ref", "HEAD"))]
-      (nova/show-notification branch))))
+  ([editor] (get-branch editor nova/run-process nova/show-notification))
+  ([editor run-process-fn show-notification-fn]
+   (go
+     (let [branch (<! (run-process-fn editor "git", "rev-parse", "--abbrev-ref", "HEAD"))]
+       (show-notification-fn branch)))))

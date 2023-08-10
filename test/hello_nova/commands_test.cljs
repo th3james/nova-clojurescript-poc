@@ -1,31 +1,32 @@
 (ns hello-nova.commands-test
   (:require
     [cljs.core.async :as async :refer [<! go chan put!]]
-    [cljs.test :refer-macros [deftest is testing]]
+    [cljs.test :refer-macros [deftest is testing async run-tests]]
     [hello-nova.commands :as commands]
     [hello-nova.nova-interop :as nova]))
 
 
-(defn mock-run-process
-  [editor & args]
-  (let [c (chan)]
-    (go (put! c "master"))
-    c))
-
-
-(def done-chan (chan))
-
-
-(defn mock-show-notification
-  [message]
-  (is (= message "not master"))
-  (put! done-chan :done))
-
-
 (deftest get-branch-test
-  (testing "get-branch behavior"
-    (with-redefs [nova/run-process mock-run-process
-                  nova/show-notification mock-show-notification]
-      (go
-        (commands/get-branch nil)
-        (is (= :done (<! done-chan)))))))
+  (testing "calls git and notifies the user"
+    (async done
+           (let [mock-channel (chan 1)
+                 mock-value "some-mock-value"
+                 done-channel (chan 1)]
+
+             (commands/get-branch nil
+                                  ;; Mock for run-process
+                                  (fn [& _]
+                                    (println "mock-run-process called")
+                                    (put! mock-channel mock-value)
+                                    mock-channel)
+                                  ;; Mock for show-notification
+                                  (fn [arg]
+                                    (put! done-channel arg)))
+
+             ;; Wait for the notification call to finish
+             (go (let [received-value (<! done-channel)]
+                   (is (= received-value mock-value))
+                   (done)))))))
+
+
+(run-tests)
