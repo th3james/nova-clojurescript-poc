@@ -17,8 +17,8 @@
   "commands": {
     "extensions": [
       {
-        "title": "Get git branch",
-        "command": "clojure-test.getBranch"
+        "title": "Open page on GitHub",
+        "command": "clojure-test.open-on-github"
       }
     ]
   },

@@ -1,16 +1,18 @@
 (ns hello-nova.core
   (:require
-    [cljs.core.async :as async :refer [<! go]]
     [hello-nova.commands :as commands]
-    [hello-nova.nova-interop :as nova]))
+    [hello-nova.dependencies :refer [nova-impl]]
+    [hello-nova.nova-interop :refer [Nova NovaStub register-command]]))
 
 
 (defn main
   []
   (js/console.log "Running core ClojureScript code.")
-  (nova/register-command "clojure-test.getBranch" commands/get-branch))
+  (reset! nova-impl (Nova.))
+  (register-command @nova-impl "clojure-test.open-on-github" commands/open-on-github))
 
 
 (defn repl-entry
   []
-  (print "Running ClojureScript REPL."))
+  (print "Running ClojureScript REPL.")
+  (reset! nova-impl (NovaStub.)))
